@@ -1,0 +1,61 @@
+# Ambiente virtuale
+venv/
+.env
+
+# File temporanei e di log
+*.log
+*.tmp
+*.pid
+*.swp
+*.swo
+
+# File Python compilati
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Configurazioni IDE/Editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# File di database locali
+*.db
+
+# File di configurazione
+instance/
+config.py
+
+# File di pacchetti
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+bin/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+lib/
+lib64/
+*.egg
+wheels/
+
+# Test coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+nosetests.xml
+coverage/
+
+# Documentazione
+docs/_build/
+site/
