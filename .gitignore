@@ -26,7 +26,6 @@ __pycache__/
 
 # File di configurazione
 instance/
-config.py
 
 # File di pacchetti
 *.egg-info/
