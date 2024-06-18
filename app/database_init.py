@@ -1,5 +1,6 @@
 import csv
 import os
+import pandas as pd
 from flask import current_app
 from pymongo import MongoClient
 from dotenv import load_dotenv
@@ -20,19 +21,67 @@ def load_csv_to_mongo(csv_file_path):
     collection_name = 'amazon_prime_users'
     collection = db[collection_name]
 
-    with open(csv_file_path, newline='', encoding='utf-8') as csvfile:
-        reader = csv.DictReader(csvfile)
-        data = [row for row in reader]
-        if data:
-            #se ci sono già dati nella collection, non inserirli
-            if collection.count_documents({}) > 0:
-                print(f"Data already exists in the '{collection_name}' collection.")
-                return f"Data already exists in the '{collection_name}' collection."
-            
-            collection.insert_many(data)
-            print(f"Inserted {len(data)} records into the '{collection_name}' collection.")
-        else:
-            print("No data found in the CSV file.")
-            return "No data found in the CSV file."
-    
-    return "Data loaded successfully."
+    # Caricamento del file CSV
+    data = pd.read_csv(csv_file_path)
+
+    # Conversione delle date
+    data['Date of Birth'] = pd.to_datetime(data['Date of Birth'], errors='coerce')
+    data['Membership Start Date'] = pd.to_datetime(data['Membership Start Date'], errors='coerce')
+    data['Membership End Date'] = pd.to_datetime(data['Membership End Date'], errors='coerce')
+
+    # Mappatura delle frequenze di utilizzo
+    frequency_mapping = {
+        'Rarely': 1,
+        'Occasionally': 2,
+        'Regular': 3,
+        'Frequent': 4,
+        'Very Frequent': 5
+    }
+    data['Usage Frequency'] = data['Usage Frequency'].map(frequency_mapping)
+
+    # Creazione dei documenti embedded
+    embedded_documents = data.apply(create_embedded_document, axis=1).tolist()
+
+    if embedded_documents:
+        # Se ci sono già dati nella collection, non inserirli
+        if collection.count_documents({}) > 0:
+            print(f"Data already exists in the '{collection_name}' collection.")
+            return f"Data already exists in the '{collection_name}' collection."
+
+        collection.insert_many(embedded_documents)
+        print(f"Inserted {len(embedded_documents)} records into the '{collection_name}' collection.")
+        return f"Inserted {len(embedded_documents)} records into the '{collection_name}' collection."
+    else:
+        print("No data found in the CSV file.")
+        return "No data found in the CSV file."
+
+
+# Funzione per creare il documento embedded
+def create_embedded_document(row):
+    return {
+        "User ID": row['User ID'],
+        "Name": row['Name'],
+        "Email Address": row['Email Address'],
+        "Username": row['Username'],
+        "Date of Birth": row['Date of Birth'],
+        "Gender": row['Gender'],
+        "Location": row['Location'],
+        "Subscription": {
+            "Start Date": row['Membership Start Date'],
+            "End Date": row['Membership End Date'],
+            "Plan": row['Subscription Plan'],
+            "Payment Information": row['Payment Information'],
+            "Renewal Status": row['Renewal Status']
+        },
+        "Usage": {
+            "Frequency": row['Usage Frequency'],
+            "Purchase History": row['Purchase History'],
+            "Favorite Genres": row['Favorite Genres'],
+            "Devices Used": row['Devices Used'],
+            "Engagement Metrics": row['Engagement Metrics']
+        },
+        "Feedback": {
+            "Ratings": row['Feedback/Ratings'],
+            "Customer Support Interactions": row['Customer Support Interactions']
+        }
+    }
