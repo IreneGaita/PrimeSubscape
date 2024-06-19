@@ -1,7 +1,8 @@
 from flask import render_template, request
 from flask import current_app as app
-from app.models import add_user
+from app.models import add_user,search_user
 from app.database_init import load_csv_to_mongo
+
 
 @app.route('/')
 def index():
@@ -24,3 +25,11 @@ def create_database():
     CSV_FILE_PATH = 'csv_prime_user/amazon_prime_users.csv'
      
     return load_csv_to_mongo(CSV_FILE_PATH)
+
+@app.route('/find_user', methods=['POST'])
+def find_user():
+    nome = request.form.get('Name')
+    print(nome)
+    user = search_user(nome)
+    print (user)
+    return str(user)
