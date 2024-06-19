@@ -1,5 +1,6 @@
 import csv
 import os
+import random
 import pandas as pd
 from flask import current_app
 from pymongo import MongoClient
@@ -32,11 +33,12 @@ def load_csv_to_mongo(csv_file_path):
     # Mappatura delle frequenze di utilizzo
     frequency_mapping = {
         'Rarely': 1,
-        'Occasionally': 2,
+        'Occasional': 2,
         'Regular': 3,
         'Frequent': 4,
         'Very Frequent': 5
     }
+    
     data['Usage Frequency'] = data['Usage Frequency'].map(frequency_mapping)
 
     # Creazione dei documenti embedded
@@ -58,6 +60,26 @@ def load_csv_to_mongo(csv_file_path):
 
 # Funzione per creare il documento embedded
 def create_embedded_document(row):
+    #for all the rows , in device used column, add some random devices
+    devices = ['Smart TV', 'Laptop', 'Tablet', 'Smartphone']
+    #pick a random number of devices
+    num_devices = random.randint(1, len(devices))
+    #pick random devices
+    row['Devices Used'] = random.sample(devices, num_devices)
+    
+    #for all the rows , in favorite genres column, add some random genres
+    genres = ['Documentary', 'Horror', 'Comedy', 'Drama', 'Action', 'Sci-Fi','Romance']
+    #pick a random number of genres
+    num_genres = random.randint(1, len(genres))
+    #pick random genres
+    row['Favorite Genres'] = random.sample(genres, num_genres)
+    
+    purchase_history = ['Electronics', 'Books', 'Clothing']
+    #pick a random number of genres
+    num_purchase = random.randint(1, len(purchase_history))
+    #pick random genres
+    row['Purchase History'] = random.sample(purchase_history, num_purchase)
+    
     return {
         "User ID": row['User ID'],
         "Name": row['Name'],

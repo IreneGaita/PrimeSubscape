@@ -1,21 +1,21 @@
-from flask import render_template
+from flask import render_template, request
 from flask import current_app as app
-from app.models import add_user, get_users
+from app.models import add_user
 from app.database_init import load_csv_to_mongo
 
 @app.route('/')
 def index():
     return render_template('index.html')
 
-@app.route('/prova')
+@app.route('/add_user', methods=['POST'])
 def prova_db():
-    # crea una nuova collection
-    add_user('mario', 'mario@gmail.com', '1234')
+    nome = request.form.get('nome')
+    email = request.form.get('email')
+    password = request.form.get('password')
     
-    # stampa tutti i documenti
-    print(get_users())
+    add_user(nome, email, password)
     
-    return render_template('index.html')
+    return "utente aggiunto con successo"
 
 @app.route('/create_database')
 def create_database():
