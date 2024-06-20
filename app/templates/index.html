@@ -4,92 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modulo di Registrazione</title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-        }
-
-
-        .content {
-            padding: 20px;
-            position: relative;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .content img {
-            max-width: auto;
-            height: auto;
-            display: block;
-            margin: 0 auto 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
-        }
-
-        form {
-            margin-top: 20px; /* Spazio sopra il form */
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-
-        label {
-            font-weight: bold;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="password"],
-        input[type="submit"] {
-            width: calc(100% - 20px);
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            box-sizing: border-box;
-        }
-
-        input[type="submit"] {
-            background-color: #5271FF;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #5271FF;
-        }
-    </style>
+    <link rel="stylesheet" href="static/style.css">
 </head>
-<body>
-    <div class="content">
-        <img src="{{url_for('static', filename='download-2.jpeg')}}" alt="Immagine home"> 
-        <h2>Modulo di Registrazione</h2> 
+<body id="body">
+    <div id="background-blur" class="background-blur"></div>
+
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="static/logo.png" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="#query">Query</a>
+            <a href="#body">Home</a>
+        </div>
+    </div>
+
+    <div class="header" id="home">
+        <div class="logo-container">
+            <img src="static/logo.png" alt="Logo">
+            <div class="title">
+                <h1>Prime Subscape</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="query">
+        <h2>Modulo di Registrazione</h2>
         <form action="http://127.0.0.1:5000/add_user" method="post">
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" required>
+            <input type="text" id="nome" name="nome" class="input-field" required>
             
             <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" class="input-field" required>
             
             <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" class="input-field" required>
             
-            <input type="submit" value="Registrati">
+            <input type="submit" class="submit-button" value="Registrati">
         </form>
 
         <h2>Cerca Utente</h2>
         <form action="http://127.0.0.1:5000/find_user" method="post">
             <label for="Name">Nome:</label>
-            <input type="text" id="Name" name="Name" required>
+            <input type="text" id="Name" name="Name" class="input-field" required>
 
-            <input type="submit" value="Cerca">
+            <input type="submit" class="submit-button" value="Cerca">
         </form>
     </div>
+    <script src="static/script.js"></script>
 </body>
 </html>
