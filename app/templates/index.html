@@ -68,7 +68,7 @@
 </head>
 <body>
     <div class="content">
-        <img src="download-2.jpeg" alt="Immagine home"> 
+        <img src="{{url_for('static', filename='download-2.jpeg')}}" alt="Immagine home"> 
         <h2>Modulo di Registrazione</h2> 
         <form action="http://127.0.0.1:5000/add_user" method="post">
             <label for="nome">Nome:</label>
