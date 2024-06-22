@@ -26,10 +26,11 @@ def create_database():
      
     return load_csv_to_mongo(CSV_FILE_PATH)
 
-@app.route('/find_user', methods=['POST'])
+@app.route('/find_user', methods=['GET','POST'])
 def find_user():
-    nome = request.form.get('Name')
-    print(nome)
-    user = search_user(nome)
-    print (user)
-    return str(user)
+    if request.method == 'POST':
+        nome = request.form.get('Name')
+        find_user = search_user(nome)
+        return render_template('querytemplate.html', find_user=find_user)
+    else:
+        return render_template('querytemplate.html', find_user=[])

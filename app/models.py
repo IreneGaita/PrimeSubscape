@@ -12,9 +12,7 @@ def add_user(name, email, password):
     return 'User added successfully!'
 
 def search_user(name):
-    user={
-        'Name' : name
+    user = {
+        'Name': name
     }
-    find_user=db.find_one(user)
-
-    return find_user 
+    return list(db.find(user))
