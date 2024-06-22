@@ -2,13 +2,17 @@ body, html {
     margin: 0;
     padding: 0;
     font-family: Arial, sans-serif;
+    background: #f0f0f0; /* Neutral background color */
+    color: #333;
+}
+
+body {
     background: url('download-2.jpeg') no-repeat center center fixed;
     background-size: cover;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    color: #333;
 }
 
 .background-blur {
@@ -22,19 +26,23 @@ body, html {
     z-index: 1;
 }
 
+.nav-links {
+    display: flex;
+}
+
 .navbar {
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
+    background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent background */
     overflow: hidden;
     padding: 10px 0;
     position: fixed;
     top: 0;
     z-index: 100;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); /* Add shadow */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease; /* Smooth background transition */
 }
 
 .navbar .logo-container {
@@ -46,7 +54,8 @@ body, html {
 }
 
 .navbar .logo-container img {
-    width: 40px;
+    width: 40px; /* Adjust size as needed */
+    margin-right: 0px;
 }
 
 .navbar .logo-container .title {
@@ -63,17 +72,17 @@ body, html {
     text-decoration: none;
     font-size: 17px;
     font-family: 'Arial', sans-serif;
-    transition: background-color 0.3s ease, color 0.3s ease;
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth hover transition */
 }
 
 .navbar a:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #ffdd57;
-    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.1); /* Lighter hover effect */
+    color: #ffdd57; /* Change text color on hover */
+    border-radius: 5px; /* Rounded corners on hover */
 }
 
 .navbar a.active {
-    background-color: #5271FF;
+    background-color: #5271FF; /* Highlight current page */
     color: white;
     border-radius: 5px;
 }
@@ -91,7 +100,7 @@ body, html {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-top: 80px;
+    margin-top: 80px; /* Adjusted to avoid overlap with navbar */
     position: relative;
     z-index: 10;
 }
@@ -115,6 +124,69 @@ body, html {
     margin: 0;
     font-size: 2em;
 }
+
+.content {
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px; /* Adjusted to avoid overlap with header */
+    z-index: 2;
+}
+
+form {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9; /* Neutral background for form */
+    box-shadow: 0 0 10px rgba(0,0,0,0.1); /* Add light shadow */
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333; /* Neutral color for labels */
+}
+
+.input-field {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff; /* White background for input fields */
+    color: #333; /* Text color */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Smooth transition */
+}
+
+.input-field:focus {
+    border-color: #5271FF; /* Highlight border on focus */
+    outline: none;
+}
+
+.submit-button {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #5271FF; /* Blue background for submit button */
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.submit-button:hover {
+    background-color: #405dcf; /* Darker blue on hover */
+}
+
 
 .search-results {
     padding: 20px;

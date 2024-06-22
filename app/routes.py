@@ -33,4 +33,4 @@ def find_user():
         find_user = search_user(nome)
         return render_template('querytemplate.html', find_user=find_user)
     else:
-        return render_template('querytemplate.html', find_user=[])
+        return render_template('index.html', find_user=[])
