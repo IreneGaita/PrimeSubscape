@@ -50,7 +50,8 @@
             </thead>
             <tbody>
                 {% for user in find_user %}
-                <tr>
+                <tr id="{{user['_id']}}">
+                    <td data-label="object id">{{ user["_id"] }}</td>
                     <td data-label="User ID">{{ user["User ID"] }}</td>
                     <td data-label="Name">{{ user["Name"] }}</td>
                     <td data-label="Email Address">{{ user["Email Address"] }}</td>
@@ -60,32 +61,38 @@
                     <td data-label="Location">{{ user["Location"] }}</td>
                     <td data-label="Subscription">
                         <ul>
+                            {%if user["Subscription"]%}
                             <li>Start Date: {{ user["Subscription"]["Start Date"] }}</li>
                             <li>End Date: {{ user["Subscription"]["End Date"] }}</li>
                             <li>Plan: {{ user["Subscription"]["Plan"] }}</li>
                             <li>Payment Information: {{ user["Subscription"]["Payment Information"] }}</li>
                             <li>Renewal Status: {{ user["Subscription"]["Renewal Status"] }}</li>
+                            {%endif%}
                         </ul>
                     </td>
                     <td data-label="Usage">
                         <ul>
+                            {%if user["Usage"]%}
                             <li>Frequency: {{ user["Usage"]["Frequency"] }}</li>
                             <li>Purchase History: {{ user["Usage"]["Purchase History"] | join(', ') }}</li>
                             <li>Favorite Genres: {{ user["Usage"]["Favorite Genres"] | join(', ') }}</li>
                             <li>Devices Used: {{ user["Usage"]["Devices Used"] | join(', ') }}</li>
                             <li>Engagement Metrics: {{ user["Usage"]["Engagement Metrics"] }}</li>
+                            {%endif%}
                         </ul>
                     </td>
                     <td data-label="Feedback">
                         <ul>
+                            {%if user["Feedback"]%}
                             <li>Ratings: {{ user["Feedback"]["Ratings"] }}</li>
                             <li>Customer Support Interactions: {{ user["Feedback"]["Customer Support Interactions"] }}</li>
+                            {%endif%}
                         </ul>
                     </td>
                     <td data-label="Actions">
                         <div class="action-buttons">
-                            <button class="edit-button">Modifica</button>
-                            <button class="delete-button">Elimina</button>
+                            <button class="edit-button" onclick='editFunction("{{ user["_id"] }}")'>Modifica</button>
+                            <button class="delete-button" onclick='deleteFunction("{{ user["_id"] }}")'>Elimina</button>
                         </div>
                     </td>
                 </tr>
@@ -95,6 +102,6 @@
     </div>
     
     
-    <script src="static/script.js"></script>
+    <script src="{{url_for('static', filename = 'script.js')}}"></script>
 </body>
 </html>

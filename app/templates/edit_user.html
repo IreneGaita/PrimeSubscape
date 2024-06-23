@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo di Registrazione</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body id="body">
+    <div id="background-blur" class="background-blur"></div>
+
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="{{url_for('static', filename="logo.png")}}" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="#query">Query</a>
+            <a href="#body">Home</a>
+        </div>
+    </div>
+
+    <div class="header" id="home">
+        <div class="logo-container">
+            <img src="{{url_for('static', filename="logo.png")}}" alt="Logo">
+            <div class="title">
+                <h1>Prime Subscape</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="query">
+        <h2>Modulo di Modifica Utente</h2>
+        <form action="{{ url_for('edit_user_route', user_id=user._id) }}" method="post">
+            
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" class="input-field" value="{{ user['Name'] }}" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="input-field" value="{{ user['Email Address'] }}" required>
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="input-field" value="{{ user['Username'] }}" required>
+            
+            <label for="date_of_birth">Data di Nascita:</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" class="input-field" value="{{ user['Date of Birth'] }}" required>
+            
+            <label for="gender">Genere:</label>
+            <select id="gender" name="gender" class="input-field" required>
+                <option value="Male" {% if user['Gender'] == 'Male' %}selected{% endif %}>Maschio</option>
+                <option value="Female" {% if user['Gender'] == 'Female' %}selected{% endif %}>Femmina</option>
+                <option value="Other" {% if user['Gender'] == 'Other' %}selected{% endif %}>Altro</option>
+            </select>
+            
+            <label for="location">Luogo:</label>
+            <input type="text" id="location" name="location" class="input-field" value="{{ user['Location'] }}" required>
+            
+            <fieldset>
+                <legend>Dettagli Sottoscrizione</legend>
+                <label for="subscription_start_date">Data di Inizio:</label>
+                <input type="date" id="subscription_start_date" name="subscription_start_date" class="input-field" value="{{ user['Subscription']['Start Date'] }}" required>
+                
+                <label for="subscription_end_date">Data di Fine:</label>
+                <input type="date" id="subscription_end_date" name="subscription_end_date" class="input-field" value="{{ user['Subscription']['End Date'] }}" required>
+                
+                <label for="subscription_plan">Piano:</label>
+                <select id="subscription_plan" name="subscription_plan" class="input-field" required>
+                    <option value="Annual" {% if user['Subscription']['Plan'] == 'Annual' %}selected{% endif %}>Annuale</option>
+                    <option value="Monthly" {% if user['Subscription']['Plan'] == 'Monthly' %}selected{% endif %}>Mensile</option>
+                </select>
+                
+                <label for="payment_information">Informazioni di Pagamento:</label>
+                <select id="payment_information" name="payment_information" class="input-field" required>
+                    <option value="Visa" {% if user['Subscription']['Payment Information'] == 'Visa' %}selected{% endif %}>Visa</option>
+                    <option value="Mastercard" {% if user['Subscription']['Payment Information'] == 'Mastercard' %}selected{% endif %}>Mastercard</option>
+                    <option value="Amex" {% if user['Subscription']['Payment Information'] == 'Amex' %}selected{% endif %}>Amex</option>
+                </select>
+                
+                <label for="renewal_status">Stato del Rinnovo:</label>
+                <select id="renewal_status" name="renewal_status" class="input-field" required>
+                    <option value="Manual" {% if user['Subscription']['Renewal Status'] == 'Manual' %}selected{% endif %}>Manuale</option>
+                    <option value="Auto-renew" {% if user['Subscription']['Renewal Status'] == 'Auto-renew' %}selected{% endif %}>Auto-rinnovo</option>
+                </select>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Dettagli Utilizzo</legend>
+                <label for="usage_frequency">Frequenza:</label>
+                <input type="number" id="usage_frequency" name="usage_frequency" class="input-field" value="{{ user['Usage']['Frequency'] }}" required>
+                
+                <label for="purchase_history">Storico Acquisti:</label>
+                <select id="purchase_history" name="purchase_history" class="input-field" required>
+                    <option value="Electronics" {% if 'Electronics' in user['Usage']['Purchase History'] %}selected{% endif %}>Elettronica</option>
+                    <option value="Books" {% if 'Books' in user['Usage']['Purchase History'] %}selected{% endif %}>Libri</option>
+                    <option value="Clothing" {% if 'Clothing' in user['Usage']['Purchase History'] %}selected{% endif %}>Abbigliamento</option>
+                </select>
+                
+                <label for="favorite_genres">Generi Preferiti:</label>
+                <select id="favorite_genres" name="favorite_genres" class="input-field" required>
+                    <option value="Documentary" {% if 'Documentary' in user['Usage']['Favorite Genres'] %}selected{% endif %}>Documentari</option>
+                    <option value="Horror" {% if 'Horror' in user['Usage']['Favorite Genres'] %}selected{% endif %}>Horror</option>
+                    <option value="Comedy" {% if 'Comedy' in user['Usage']['Favorite Genres'] %}selected{% endif %}>Commedia</option>
+                    <option value="Drama" {% if 'Drama' in user['Usage']['Favorite Genres'] %}selected{% endif %}>Dramma</option>
+                </select>
+                
+                <label for="devices_used">Dispositivi Utilizzati:</label>
+                <select id="devices_used" name="devices_used" class="input-field" required>
+                    <option value="Smart TV" {% if 'Smart TV' in user['Usage']['Devices Used'] %}selected{% endif %}>Smart TV</option>
+                    <option value="Smartphone" {% if 'Smartphone' in user['Usage']['Devices Used'] %}selected{% endif %}>Smartphone</option>
+                </select>
+                
+                <label for="engagement_metrics">Metriche di Coinvolgimento:</label>
+                <select id="engagement_metrics" name="engagement_metrics" class="input-field" required>
+                    <option value="Low" {% if user['Usage']['Engagement Metrics'] == 'Low' %}selected{% endif %}>Bassa</option>
+                    <option value="Medium" {% if user['Usage']['Engagement Metrics'] == 'Medium' %}selected{% endif %}>Media</option>
+                    <option value="High" {% if user['Usage']['Engagement Metrics'] == 'High' %}selected{% endif %}>Alta</option>
+                </select>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Feedback</legend>
+                <label for="ratings">Valutazioni:</label>
+                <input type="number" id="ratings" name="ratings" class="input-field" step="0.1" value="{{ user['Feedback']['Ratings'] }}" required>
+                
+                <label for="customer_support_interactions">Interazioni con il Supporto Clienti:</label>
+                <input type="number" id="customer_support_interactions" name="customer_support_interactions" class="input-field" value="{{ user['Feedback']['Customer Support Interactions'] }}" required>
+            </fieldset>
+            
+            <input type="submit" class="submit-button" value="Modifica Utente">
+        </form>
+
+    </div>
+    <script src="{{url_for('static', filename = 'script.js')}}"></script>
+</body>
+</html>
