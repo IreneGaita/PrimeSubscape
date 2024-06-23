@@ -32,31 +32,33 @@
     <div class="search-results">
         <h2>Risultati della Ricerca</h2>
         <table>
+            <caption>Statement Summary</caption>
             <thead>
                 <tr>
-                    <th>User ID</th>
-                    <th>Name</th>
-                    <th>Email Address</th>
-                    <th>Username</th>
-                    <th>Date of Birth</th>
-                    <th>Gender</th>
-                    <th>Location</th>
-                    <th>Subscription</th>
-                    <th>Usage</th>
-                    <th>Feedback</th>
+                    <th scope="col">User ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email Address</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Date of Birth</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Subscription</th>
+                    <th scope="col">Usage</th>
+                    <th scope="col">Feedback</th>
+                    <th scope="col">Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {% for user in find_user %}
                 <tr>
-                    <td>{{ user["User ID"] }}</td>
-                    <td>{{ user["Name"] }}</td>
-                    <td>{{ user["Email Address"] }}</td>
-                    <td>{{ user["Username"] }}</td>
-                    <td>{{ user["Date of Birth"] }}</td>
-                    <td>{{ user["Gender"] }}</td>
-                    <td>{{ user["Location"] }}</td>
-                    <td>
+                    <td data-label="User ID">{{ user["User ID"] }}</td>
+                    <td data-label="Name">{{ user["Name"] }}</td>
+                    <td data-label="Email Address">{{ user["Email Address"] }}</td>
+                    <td data-label="Username">{{ user["Username"] }}</td>
+                    <td data-label="Date of Birth">{{ user["Date of Birth"] }}</td>
+                    <td data-label="Gender">{{ user["Gender"] }}</td>
+                    <td data-label="Location">{{ user["Location"] }}</td>
+                    <td data-label="Subscription">
                         <ul>
                             <li>Start Date: {{ user["Subscription"]["Start Date"] }}</li>
                             <li>End Date: {{ user["Subscription"]["End Date"] }}</li>
@@ -65,7 +67,7 @@
                             <li>Renewal Status: {{ user["Subscription"]["Renewal Status"] }}</li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Usage">
                         <ul>
                             <li>Frequency: {{ user["Usage"]["Frequency"] }}</li>
                             <li>Purchase History: {{ user["Usage"]["Purchase History"] | join(', ') }}</li>
@@ -74,17 +76,25 @@
                             <li>Engagement Metrics: {{ user["Usage"]["Engagement Metrics"] }}</li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Feedback">
                         <ul>
                             <li>Ratings: {{ user["Feedback"]["Ratings"] }}</li>
                             <li>Customer Support Interactions: {{ user["Feedback"]["Customer Support Interactions"] }}</li>
                         </ul>
+                    </td>
+                    <td data-label="Actions">
+                        <div class="action-buttons">
+                            <button class="edit-button">Modifica</button>
+                            <button class="delete-button">Elimina</button>
+                        </div>
                     </td>
                 </tr>
                 {% endfor %}
             </tbody>
         </table>
     </div>
+    
+    
     <script src="static/script.js"></script>
 </body>
 </html>

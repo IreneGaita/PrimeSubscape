@@ -23,7 +23,7 @@ body {
     height: 100%;
     background: inherit;
     filter: blur(4px);
-    z-index: -1;
+    z-index: 0;
 }
 
 .nav-links {
@@ -187,37 +187,132 @@ label {
     background-color: #405dcf; /* Darker blue on hover */
 }
 
+/* General Styling */
+body {
+    font-family: "Open Sans", sans-serif;
+    line-height: 1.25;
+}
 
-.search-results {
-    padding: 20px;
-    background: #fff;
-    border-radius: 4px;
+.search-results{
     margin-top: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    max-width: 800px;
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+    z-index: 2;
+
 }
 
-.search-results h2 {
-    margin-top: 0;
+/* Table Styling */
+.search-results table {
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    table-layout: fixed;
 }
 
-.search-results .result {
-    padding: 10px 0;
-    border-bottom: 1px solid #ccc;
+.search-results table caption {
+    font-size: 1.5em;
+    margin: .5em 0 .75em;
+    text-align: center;
 }
 
-.search-results .result:last-child {
-    border-bottom: none;
+.search-results table tr {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: .35em;
 }
 
-.search-results p, .search-results ul {
-    margin: 5px 0;
+.search-results table th,
+.search-results table td {
+    padding: .625em;
+    text-align: center;
+}
+
+.search-results table th {
+    font-size: .85em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.search-results .action-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.search-results .action-buttons button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    color: #fff;
+}
+
+.search-results .action-buttons .edit-button {
+    background-color: #4CAF50; /* Green for Edit */
+}
+
+.search-results .action-buttons .delete-button {
+    background-color: #f44336; /* Red for Delete */
 }
 
 .search-results ul {
     list-style-type: none;
-    padding-left: 0;
+    padding: 0;
+    margin: 0;
 }
 
-.search-results ul li {
-    margin: 5px 0;
+/* Responsive Styling */
+@media screen and (max-width: 20000px) {
+    .search-results table {
+        border: 0;
+    }
+
+    .search-results table caption {
+        font-size: 1.3em;
+    }
+  
+    .search-results table thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
+  
+    .search-results table tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        margin-bottom: .625em;
+    }
+  
+    .search-results table td {
+        border-bottom: 1px solid #ddd;
+        display: block;
+        font-size: .8em;
+        text-align: right;
+    }
+  
+    .search-results table td::before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+  
+    .search-results table td:last-child {
+        border-bottom: 0;
+    }
 }
+
+
