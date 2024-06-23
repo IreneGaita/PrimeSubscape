@@ -48,6 +48,15 @@ def edit_user_route(user_id):
     # Recupera i dettagli dell'utente dal database
     user = find_user_by_id(user_id)
 
+    #adapt date format
+    if user['Date of Birth'] is type(str):
+        user['Date of Birth'] = datetime.strptime(user['Date of Birth'], '%Y-%m-%d').date().strftime('%Y-%m-%d')
+        user['Subscription']['Start Date'] = datetime.strptime(user['Subscription']['Start Date'], '%Y-%m-%d').date().strftime('%Y-%m-%d')
+        user['Subscription']['End Date'] = datetime.strptime(user['Subscription']['End Date'], '%Y-%m-%d').date().strftime('%Y-%m-%d')
+    else:
+        user["Date of Birth"] = user["Date of Birth"].strftime('%Y-%m-%d')
+        user["Subscription"]["Start Date"] = user["Subscription"]["Start Date"].strftime('%Y-%m-%d')
+        user["Subscription"]["End Date"] = user["Subscription"]["End Date"].strftime('%Y-%m-%d')
 
     return render_template('edit_user.html', user=user)
         
