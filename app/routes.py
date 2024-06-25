@@ -128,3 +128,9 @@ def delete_user_route():
 def show_all_users():
     users = search_all_user()
     return render_template('querytemplate.html', find_user=users)
+
+
+@app.route('/show_end_date', methods=['GET'])
+def show_end_date():
+    users = show_end_date()
+    return render_template('querytemplate.html', find_users=users)

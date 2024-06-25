@@ -1,3 +1,4 @@
+from datetime import datetime
 import random
 from bson import ObjectId
 from flask import current_app
@@ -50,3 +51,13 @@ def add_user(user_data):
 
     result = db.insert_one(user_data)
     return result
+
+
+def show_end_date():
+    current_date = datetime.now()
+    users = list(db.find({"Subscription.End Date": {"$lte": current_date}}).sort("Subscription.End Date", 1))
+    return users
+
+    # Esegui la funzione per ottenere gli utenti
+expired_users = show_end_date()
+print(expired_users)
