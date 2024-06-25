@@ -132,5 +132,5 @@ def show_all_users():
 
 @app.route('/show_end_date', methods=['GET'])
 def show_end_date_route():
-    expired_users = show_end_date()  
-    return render_template('querytemplate.html', expired_users=expired_users)
+    user = show_end_date()  
+    return render_template('showexpiredusers.html', showexpired_users=user)

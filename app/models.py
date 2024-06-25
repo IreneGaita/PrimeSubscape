@@ -55,5 +55,5 @@ def add_user(user_data):
 
 def show_end_date():
     current_date = datetime.now()
-    users = list(db.tuo_collection.find({'Subscription.End Date': {"$lte": current_date}}).sort('Subscription.End Date', 1))
-    return users
+    showexpired_users= list(db.find({'Subscription.End Date': {"$lte": current_date}}).sort('Subscription.End Date', 1))
+    return showexpired_users
