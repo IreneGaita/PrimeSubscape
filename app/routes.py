@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 from flask import jsonify, render_template, request, redirect, url_for
 from flask import current_app as app
-from app.models import add_user,search_user, delete_user, search_all_user, edit_user, find_user_by_id
+from app.models import add_user,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date
 from app.database_init import load_csv_to_mongo
 
 
@@ -131,6 +131,6 @@ def show_all_users():
 
 
 @app.route('/show_end_date', methods=['GET'])
-def show_end_date():
-    users = show_end_date()
-    return render_template('querytemplate.html', find_users=users)
+def show_end_date_route():
+    expired_users = show_end_date()  
+    return render_template('querytemplate.html', expired_users=expired_users)

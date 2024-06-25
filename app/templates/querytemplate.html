@@ -103,7 +103,7 @@
     
 
 
-    <div class="show-expired-results">
+    <div class="show_end_date">
         <h2>Risultati della Ricerca</h2>
         <table>
             <caption>Statement of Expired Subscriptions Summary</caption>
@@ -123,7 +123,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for user in find_users %}
+                {% for user in expired_users %}
                 <tr id="{{user['_id']}}">
                     <td data-label="object id">{{ user["_id"] }}</td>
                     <td data-label="User ID">{{ user["User ID"] }}</td>
@@ -170,7 +170,7 @@
                         </div>
                     </td>
                 </tr>
-                {% endfor %}
+            {% endfor %}
             </tbody>
         </table>
     </div>
