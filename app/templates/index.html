@@ -183,6 +183,26 @@
             <input type="submit" class="submit-button" value="Cerca">
         </form>
         
+
+        <h2>Conteggio dei Piani di Abbonamento</h2>
+        <form action="http://127.0.0.1:5000/count_plans" method="post">
+            <input type="submit" class="submit-button" value="Mostra Conteggio dei Piani">
+        </form>
+    
+        <h3>Risultati:</h3>
+        <table>
+            <tr>
+                <th>Piano di Abbonamento</th>
+                <th>Conteggio</th>
+            </tr>
+            {% for plan in find_user %}
+            <tr>
+                <td>{{ plan._id }}</td>
+                <td>{{ plan.count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
     </div>
     <script src="static/script.js"></script>
 </body>

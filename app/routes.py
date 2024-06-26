@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 from flask import jsonify, render_template, request, redirect, url_for
 from flask import current_app as app
-from app.models import add_user, intervall_date,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower
+from app.models import add_user, count_plans, intervall_date,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower
 from app.database_init import load_csv_to_mongo
 
 
@@ -163,3 +163,8 @@ def show_ratings_lower_route():
     interactionsupp= float(request.form.get('Customer Support Interactions'))
     user=show_ratings_lower(rating,interactionsupp)  
     return render_template('querytemplate.html', find_user=user)
+
+@app.route('/count_plans', methods=['POST'])
+def count_plans_route():
+    user=count_plans()
+    return  render_template('index.html', find_user=user)

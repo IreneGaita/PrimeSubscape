@@ -103,3 +103,17 @@ def show_ratings_lower(rating,interactionsupp):
     rating_user=list(db.find(query))
     print(rating_user)
     return rating_user
+
+def count_plans():
+    pipeline = [
+        {
+            '$group': {
+                '_id': "$Subscription.Plan",
+                'count': { '$sum': 1 }
+            }
+        }
+    ]
+    print(pipeline)
+    count_p=list(db.aggregate(pipeline))
+    print(count_p)
+    return count_p
