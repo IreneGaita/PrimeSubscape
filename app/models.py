@@ -55,5 +55,25 @@ def add_user(user_data):
 
 def show_end_date():
     current_date = datetime.now()
-    showexpired_users= list(db.find({'Subscription.End Date': {"$lte": current_date}}).sort('Subscription.End Date', 1))
+    current_date = current_date.strftime("%Y-%m-%d")
+    showexpired_users= list(db.find({'Subscription.End Date': {"$lte": current_date}}))
+    print(showexpired_users)
     return showexpired_users
+
+
+def intervall_date(startDate, endDate):
+    user= {
+        'Subscription.Start Date': startDate,
+        'Subscription.End Date': endDate
+    }
+    startDate = startDate.strftime("%Y-%m-%d")
+    endDate = endDate.strftime("%Y-%m-%d")
+    query= {"$and":[
+        {'Subscription.Start Date': {"$gte": startDate}},{'Subscription.End Date': {"$lte": endDate}}
+        ]}
+    intervall_user=list(db.find(query
+    ))
+    print(query)
+    print(startDate,endDate)
+    print(intervall_user)
+    return intervall_user
