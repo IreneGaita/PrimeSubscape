@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 from flask import jsonify, render_template, request, redirect, url_for
 from flask import current_app as app
-from app.models import add_user, intervall_date,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender
+from app.models import add_user, intervall_date,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location
 from app.database_init import load_csv_to_mongo
 
 
@@ -149,4 +149,10 @@ def interval_date_route():
 def show_gender_route():
     gender = request.form.get('Gender')
     user= show_gender(gender)  
+    return render_template('querytemplate.html', find_user=user)
+
+@app.route('/show_location', methods=['POST'])
+def show_location_route():
+    location = request.form.get('Location')
+    user= show_location(location)  
     return render_template('querytemplate.html', find_user=user)

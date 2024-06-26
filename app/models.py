@@ -83,3 +83,12 @@ def show_gender(gender):
     }
     gender_user = list(db.find(query))
     return gender_user
+
+
+def show_location(location):
+    query= {
+        'Location': { '$regex': f'^{location}', '$options': 'i'  }  
+    }
+   
+    location_user = list(db.find(query))
+    return location_user
