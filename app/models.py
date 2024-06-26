@@ -66,8 +66,7 @@ def intervall_date(startDate, endDate):
         'Subscription.Start Date': startDate,
         'Subscription.End Date': endDate
     }
-    startDate = startDate.strftime("%Y-%m-%d")
-    endDate = endDate.strftime("%Y-%m-%d")
+    
     query= {"$and":[
         {'Subscription.Start Date': {"$gte": startDate}},{'Subscription.End Date': {"$lte": endDate}}
         ]}

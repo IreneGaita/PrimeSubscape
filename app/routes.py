@@ -143,5 +143,5 @@ def interval_date_route():
     endDate = request.form.get('End Date')
     endDate = datetime.strptime(endDate, '%Y-%m-%d')
     user = intervall_date(startDate,endDate)  
-    return render_template('index.html', users=user)
+    return render_template('querytemplate.html', find_user=user)
 
