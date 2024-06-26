@@ -76,3 +76,10 @@ def intervall_date(startDate, endDate):
     print(startDate,endDate)
     print(intervall_user)
     return intervall_user
+
+def show_gender(gender):
+    query= {
+        'Gender': gender
+    }
+    gender_user = list(db.find(query))
+    return gender_user
