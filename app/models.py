@@ -89,6 +89,17 @@ def show_location(location):
     query= {
         'Location': { '$regex': f'^{location}', '$options': 'i'  }  
     }
-   
     location_user = list(db.find(query))
     return location_user
+
+def show_ratings_lower(rating,interactionsupp):
+    query = {
+        '$or': [
+            { 'Feedback.Ratings': { '$lt': rating } },
+            { 'Feedback.Customer Support Interactions': { '$gt': interactionsupp } }
+        ]
+    }
+    print(query)
+    rating_user=list(db.find(query))
+    print(rating_user)
+    return rating_user

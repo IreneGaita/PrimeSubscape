@@ -173,7 +173,16 @@
             <input type="Location" id="Location" name="Location" class="input-field" required>
             <input type="submit" class="submit-button" value="Cerca">
         </form>
-
+         
+        <h2>Mostra gli utenti con valutazioni basse o molte interazioni. Inserire i valori per la ricerca</h2>
+        <form action="http://127.0.0.1:5000/show_ratings_lower" method="post">
+            <label for="Ratings">Ratings:</label>
+            <input type="Ratings" id="Ratings" name="Ratings" class="input-field" required>
+            <label for="Customer Support Interactions">Customer Support Interactions:</label>
+            <input type="Customer Support Interactions" id="Customer Support Interactions" name="Customer Support Interactions" class="input-field" required>
+            <input type="submit" class="submit-button" value="Cerca">
+        </form>
+        
     </div>
     <script src="static/script.js"></script>
 </body>
