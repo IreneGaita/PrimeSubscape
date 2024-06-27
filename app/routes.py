@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 from flask import jsonify, render_template, request, redirect, url_for
 from flask import current_app as app
-from app.models import add_user, count_plans, count_renewal_status, find_users_with_favorite_genres, find_users_with_one_device, get_unique_genres, intervall_date, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower, user_monthly_plan_frequency
+from app.models import add_user, count_devices_used, count_plans, count_renewal_status, find_users_with_favorite_genres, find_users_with_one_device, get_unique_genres, intervall_date, map_reduce_subscription_status, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower, user_monthly_plan_frequency
 from app.database_init import load_csv_to_mongo
 
 
@@ -199,3 +199,9 @@ def select_genres():
     else:
         genres = get_unique_genres()
         return render_template('querytemplate.html', genres=genres, find_user=[], selected_genres=[])
+
+@app.route('/count_devices_used', methods=['POST'])
+def count_devices_used_route():
+    device_counts = count_devices_used()
+    return render_template('index.html', device_counts=device_counts)
+

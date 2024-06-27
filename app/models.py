@@ -171,5 +171,21 @@ def count_renewal_status():
 def get_unique_genres():
     return db.distinct("Usage.Favorite Genres")  
 def find_users_with_favorite_genres(genres):
+
     query = { "Usage.Favorite Genres": { '$in': genres } }
     return list(db.find(query))  
+
+
+
+def count_devices_used():
+    pipeline = [
+        {
+            '$group': {
+                '_id': { '$size': "$Usage.Devices Used" },
+                'count': { '$sum': 1 }
+            }
+        }
+    ]
+    return list(db.aggregate(pipeline)) 
+
+

@@ -260,8 +260,28 @@
         </table>
         
 
+        <h2>Conteggio degli Utenti per Numero di Dispositivi Usati</h2>
+        <form action="http://127.0.0.1:5000/count_devices_used" method="post">
+            <input type="submit" class="submit-button" value="Mostra Conteggio degli Utenti per Numero di Dispositivi Usati">
+        </form>
+    
+        <table>
+            <thead>
+                <tr>
+                    <th>Numero di Dispositivi Usati</th>
+                    <th>Conteggio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for count in device_counts %}
+                <tr>
+                    <td>{{ count._id }}</td>
+                    <td>{{ count.count }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
 
-       
     </div>
     <script src="static/script.js"></script>
 </body>
