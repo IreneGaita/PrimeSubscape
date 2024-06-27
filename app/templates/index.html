@@ -233,8 +233,32 @@
         </form>
 
        
+          
+        <h2>Mostra gli utenti con  piano Mensile e alta Frequenza</h2>
+        <form action="http://127.0.0.1:5000/users_with_monthly_plan" method="get">
+            <input type="submit" class="submit-button" value="Mostra">
+        </form>
+       
     
+        <h2>Conteggio degli Stati di Rinnovo</h2>
+        <form action="http://127.0.0.1:5000/renewal_status_counts" method="post">
+            <input type="submit" class="submit-button" value="Mostra Conteggio degli Stati di Rinnovo">
+        </form>
 
+        <h3>Risultati:</h3>
+        <table>
+            <tr>
+                <th>Stato di Rinnovo</th>
+                <th>Conteggio</th>
+            </tr>
+            {% for status in counts %}
+            <tr>
+                <td>{{ status._id }}</td>
+                <td>{{ status.count }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        
     </div>
     <script src="static/script.js"></script>
 </body>

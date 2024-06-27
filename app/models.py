@@ -141,3 +141,29 @@ def find_users_with_one_device():
     }
     result = list(db.find(query))  
     return result
+
+
+def user_monthly_plan_frequency():
+    query = {
+        '$and': [
+            { "Subscription.Plan": "Monthly" },
+            { "Usage.Frequency": { '$gt': 2 } }
+        ]
+        
+    }
+    sort= [("Usage.Frequency", -1)]
+    result = list(db.find(query).sort(sort)) 
+    return result
+
+
+def count_renewal_status():
+    pipeline = [
+        {
+            '$group': {
+                '_id': "$Subscription.Renewal Status",
+                'count': { '$sum': 1 }
+            }
+        }
+    ]
+    result = list(db.aggregate(pipeline)) 
+    return result

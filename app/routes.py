@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 from flask import jsonify, render_template, request, redirect, url_for
 from flask import current_app as app
-from app.models import add_user, count_plans, find_users_with_one_device, intervall_date, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower
+from app.models import add_user, count_plans, count_renewal_status, find_users_with_one_device, intervall_date, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower, user_monthly_plan_frequency
 from app.database_init import load_csv_to_mongo
 
 
@@ -178,3 +178,13 @@ def average_rating_by_location_route():
 def users_with_one_device_route():
     user = find_users_with_one_device()
     return render_template('querytemplate.html', find_user=user)
+
+@app.route('/users_with_monthly_plan', methods=['GET'])
+def user_monthly_plan_frequency_route():
+    user = user_monthly_plan_frequency()
+    return render_template('querytemplate.html', find_user=user)
+
+@app.route('/renewal_status_counts', methods=['POST'])
+def renewal_status_counts_route():
+    counts = count_renewal_status()
+    return render_template('index.html', counts=counts)
