@@ -195,14 +195,40 @@
                 <th>Piano di Abbonamento</th>
                 <th>Conteggio</th>
             </tr>
-            {% for plan in find_user %}
-            <tr>
-                <td>{{ plan._id }}</td>
-                <td>{{ plan.count }}</td>
-            </tr>
-            {% endfor %}
+           
+                {% for plan in plans %}
+                <tr>
+                    <td>{{ plan._id }}</td>
+                    <td>{{ plan.count }}</td>
+                </tr>
+                {% endfor %}
+        
         </table>
         
+        <h2>Valutazione Media per Location</h2>
+        <form action="http://127.0.0.1:5000/rating_by_location" method="post">
+            <input type="submit" class="submit-button" value="Mostra Valutazione Media per Location">
+        </form>
+    
+        <h3>Risultati:</h3>
+        <table>
+            <tr>
+                <th>Location</th>
+                <th>Valutazione Media</th>
+            </tr>
+            {% if avg_ratings %}
+                {% for rating in avg_ratings %}
+                <tr>
+                    <td>{{ rating._id }}</td>
+                    <td>{{ rating.avgRating }}</td>
+                </tr>
+                {% endfor %}
+            {% endif %}
+        </table>
+        
+        
+
+
     </div>
     <script src="static/script.js"></script>
 </body>

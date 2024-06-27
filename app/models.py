@@ -117,3 +117,19 @@ def count_plans():
     count_p=list(db.aggregate(pipeline))
     print(count_p)
     return count_p
+
+
+def rating_by_location():
+    pipeline = [
+        {
+            '$group': {
+                '_id': "$Location",
+                'avgRating': { '$avg': "$Feedback.Ratings" }
+            }
+        },
+        {
+            '$sort': { 'avgRating': 1 }  # Ordina in ordine crescente
+        }
+    ]
+    avg_ratings = list(db.aggregate(pipeline))  
+    return avg_ratings
