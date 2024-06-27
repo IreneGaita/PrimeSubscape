@@ -133,3 +133,11 @@ def rating_by_location():
     ]
     avg_ratings = list(db.aggregate(pipeline))  
     return avg_ratings
+
+
+def find_users_with_one_device():
+    query = {
+        "Usage.Devices Used": { '$size': 1 }
+    }
+    result = list(db.find(query))  
+    return result
