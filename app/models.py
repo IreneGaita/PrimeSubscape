@@ -167,3 +167,9 @@ def count_renewal_status():
     ]
     result = list(db.aggregate(pipeline)) 
     return result
+
+def get_unique_genres():
+    return db.distinct("Usage.Favorite Genres")  
+def find_users_with_favorite_genres(genres):
+    query = { "Usage.Favorite Genres": { '$in': genres } }
+    return list(db.find(query))  

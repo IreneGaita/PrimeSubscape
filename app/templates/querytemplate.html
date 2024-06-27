@@ -31,74 +31,87 @@
 
     <div class="search-results">
         <h2>Risultati della Ricerca</h2>
-        <table>
-            <caption>Statement Summary</caption>
-            <thead>
-                <tr>
-                    <th scope="col">User ID</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Email Address</th>
-                    <th scope="col">Username</th>
-                    <th scope="col">Date of Birth</th>
-                    <th scope="col">Gender</th>
-                    <th scope="col">Location</th>
-                    <th scope="col">Subscription</th>
-                    <th scope="col">Usage</th>
-                    <th scope="col">Feedback</th>
-                    <th scope="col">Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for user in find_user %}
-                <tr id="{{user['_id']}}">
-                    <td data-label="object id">{{ user["_id"] }}</td>
-                    <td data-label="User ID">{{ user["User ID"] }}</td>
-                    <td data-label="Name">{{ user["Name"] }}</td>
-                    <td data-label="Email Address">{{ user["Email Address"] }}</td>
-                    <td data-label="Username">{{ user["Username"] }}</td>
-                    <td data-label="Date of Birth">{{ user["Date of Birth"] }}</td>
-                    <td data-label="Gender">{{ user["Gender"] }}</td>
-                    <td data-label="Location">{{ user["Location"] }}</td>
-                    <td data-label="Subscription">
-                        <ul>
-                            {%if user["Subscription"]%}
-                            <li>Start Date: {{ user["Subscription"]["Start Date"] }}</li>
-                            <li>End Date: {{ user["Subscription"]["End Date"] }}</li>
-                            <li>Plan: {{ user["Subscription"]["Plan"] }}</li>
-                            <li>Payment Information: {{ user["Subscription"]["Payment Information"] }}</li>
-                            <li>Renewal Status: {{ user["Subscription"]["Renewal Status"] }}</li>
-                            {%endif%}
-                        </ul>
-                    </td>
-                    <td data-label="Usage">
-                        <ul>
-                            {%if user["Usage"]%}
-                            <li>Frequency: {{ user["Usage"]["Frequency"] }}</li>
-                            <li>Purchase History: {{ user["Usage"]["Purchase History"] | join(', ') }}</li>
-                            <li>Favorite Genres: {{ user["Usage"]["Favorite Genres"] | join(', ') }}</li>
-                            <li>Devices Used: {{ user["Usage"]["Devices Used"] | join(', ') }}</li>
-                            <li>Engagement Metrics: {{ user["Usage"]["Engagement Metrics"] }}</li>
-                            {%endif%}
-                        </ul>
-                    </td>
-                    <td data-label="Feedback">
-                        <ul>
-                            {%if user["Feedback"]%}
-                            <li>Ratings: {{ user["Feedback"]["Ratings"] }}</li>
-                            <li>Customer Support Interactions: {{ user["Feedback"]["Customer Support Interactions"] }}</li>
-                            {%endif%}
-                        </ul>
-                    </td>
-                    <td data-label="Actions">
-                        <div class="action-buttons">
-                            <button class="edit-button" onclick='editFunction("{{ user["_id"] }}")'>Modifica</button>
-                            <button class="delete-button" onclick='deleteFunction("{{ user["_id"] }}")'>Elimina</button>
-                        </div>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        
+        <form action="/select_genres" method="post">
+            <h2>Filtra per Generi Preferiti</h2>
+            {% for genre in genres %}
+                <input type="checkbox" id="genre_{{ genre }}" name="genres" value="{{ genre }}" {% if genre in selected_genres %}checked{% endif %}>
+                <label for="genre_{{ genre }}">{{ genre }}</label><br>
+            {% endfor %}
+            <input type="submit" class="submit-button" value="Filtra Utenti">
+        </form>
+
+        {% if find_user %}
+            <h3>Risultati:</h3>
+            <table>
+                <caption>Statement Summary</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">User ID</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Email Address</th>
+                        <th scope="col">Username</th>
+                        <th scope="col">Date of Birth</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Subscription</th>
+                        <th scope="col">Usage</th>
+                        <th scope="col">Feedback</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in find_user %}
+                    <tr id="{{user['_id']}}">
+                        <td data-label="object id">{{ user["_id"] }}</td>
+                        <td data-label="User ID">{{ user["User ID"] }}</td>
+                        <td data-label="Name">{{ user["Name"] }}</td>
+                        <td data-label="Email Address">{{ user["Email Address"] }}</td>
+                        <td data-label="Username">{{ user["Username"] }}</td>
+                        <td data-label="Date of Birth">{{ user["Date of Birth"] }}</td>
+                        <td data-label="Gender">{{ user["Gender"] }}</td>
+                        <td data-label="Location">{{ user["Location"] }}</td>
+                        <td data-label="Subscription">
+                            <ul>
+                                {% if user["Subscription"] %}
+                                <li>Start Date: {{ user["Subscription"]["Start Date"] }}</li>
+                                <li>End Date: {{ user["Subscription"]["End Date"] }}</li>
+                                <li>Plan: {{ user["Subscription"]["Plan"] }}</li>
+                                <li>Payment Information: {{ user["Subscription"]["Payment Information"] }}</li>
+                                <li>Renewal Status: {{ user["Subscription"]["Renewal Status"] }}</li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td data-label="Usage">
+                            <ul>
+                                {% if user["Usage"] %}
+                                <li>Frequency: {{ user["Usage"]["Frequency"] }}</li>
+                                <li>Purchase History: {{ user["Usage"]["Purchase History"] | join(', ') }}</li>
+                                <li>Favorite Genres: {{ user["Usage"]["Favorite Genres"] | join(', ') }}</li>
+                                <li>Devices Used: {{ user["Usage"]["Devices Used"] | join(', ') }}</li>
+                                <li>Engagement Metrics: {{ user["Usage"]["Engagement Metrics"] }}</li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td data-label="Feedback">
+                            <ul>
+                                {% if user["Feedback"] %}
+                                <li>Ratings: {{ user["Feedback"]["Ratings"] }}</li>
+                                <li>Customer Support Interactions: {{ user["Feedback"]["Customer Support Interactions"] }}</li>
+                                {% endif %}
+                            </ul>
+                        </td>
+                        <td data-label="Actions">
+                            <div class="action-buttons">
+                                <button class="edit-button" onclick='editFunction("{{ user["_id"] }}")'>Modifica</button>
+                                <button class="delete-button" onclick='deleteFunction("{{ user["_id"] }}")'>Elimina</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
     </div>
     
     <script src="{{url_for('static', filename = 'script.js')}}"></script>
