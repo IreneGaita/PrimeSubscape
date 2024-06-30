@@ -32,3 +32,21 @@ function editFunction(userId){
         //go to the page to edit the user
         window.location.href = 'http://localhost:5000/edit_user/' + userId;
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+        const images = [
+            '/static/download-2.jpeg',
+            '/static/background1.jpg',  // Aggiungi il percorso alle altre immagini qui
+            '/static/background2.webp',
+            '/static/background3.jpg'
+        ];
+        
+        let currentImageIndex = 0;
+        
+        function changeBackgroundImage() {
+            currentImageIndex = (currentImageIndex + 1) % images.length;
+            document.body.style.backgroundImage = `url(${images[currentImageIndex]})`;
+        }
+        
+        setInterval(changeBackgroundImage, 10000); // Cambia immagine ogni 10 secondi
+    });
