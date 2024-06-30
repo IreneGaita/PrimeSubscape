@@ -1,5 +1,3 @@
-# Define the content for the README.md file
-readme_content = """
 # PrimeSubscape
 
 PrimeSubscape is a web application designed to manage Amazon Prime subscription data. The application allows users to view, query, and manage user data effectively.
