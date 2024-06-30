@@ -1,5 +1,6 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 import random
+import re
 from bson import ObjectId
 from flask import current_app
 
@@ -12,13 +13,17 @@ def find_user_by_id(user_id):
     return db.find_one(user)
 
 def search_user(name):
-    user = {
-        'Name': name
+    # Creazione del pattern regex per la ricerca
+    regex_pattern = re.compile(name, re.IGNORECASE)  # Ignora maiuscole e minuscole
+
+    # Crea il filtro di ricerca utilizzando $regex
+    query = {
+        'Name': {
+            '$regex': regex_pattern
+        }
     }
-    #print all user object id
-    for user in db.find(user):
-        print(user['_id'])
-    return list(db.find(user))
+    
+    return list(db.find(query))
 
 def edit_user(user_data, user_id):
     db.update_one({"_id": ObjectId(user_id)}, {"$set": user_data})
@@ -54,10 +59,8 @@ def add_user(user_data):
 
 
 def show_end_date():
-    current_date = datetime.now()
-    current_date = current_date.strftime("%Y-%m-%d")
-    showexpired_users= list(db.find({'Subscription.End Date': {"$lte": current_date}}))
-    print(showexpired_users)
+    
+    showexpired_users= list(db.find({'Subscription.End Date': {"$lte": datetime.now()}}))
     return showexpired_users
 
 
@@ -189,3 +192,67 @@ def count_devices_used():
     return list(db.aggregate(pipeline)) 
 
 
+def aggregate_subscription_years():
+
+    # Definisci la pipeline di aggregazione
+    # Definisci la pipeline di aggregazione
+    pipeline = [
+        {
+            "$addFields": {
+                "Subscription.Years": {
+                    "$divide": [
+                        {"$subtract": ["$Subscription.End Date", "$Subscription.Start Date"]},
+                        1000 * 60 * 60 * 24 * 365  # Convertire millisecondi in anni
+                    ]
+                }
+            }
+        },
+        {
+            "$project": {
+                "User ID": 1,
+                "Subscription.Years": 1,
+                "Name": 1,
+            }
+        }
+    ]
+
+
+    # Esegui l'aggregazione
+    result = db.aggregate(pipeline)
+    # Ritorna i risultati come lista
+    return list(result)
+
+
+def find_every_user_less_greater_equal_subscription_years(operator, years):
+    # Definisci la pipeline di aggregazione
+    pipeline = [
+        {
+            "$addFields": {
+                "Subscription.Years": {
+                    "$divide": [
+                        {"$subtract": ["$Subscription.End Date", "$Subscription.Start Date"]},
+                        1000 * 60 * 60 * 24 * 365  # Convertire millisecondi in anni
+                    ]
+                }
+            }
+        },
+        {
+            "$match": {
+                "Subscription.Years": { f"${operator}": years }
+            }
+        }
+    ]
+    
+    # Aggiungi una condizione personalizzata per l'operatore "eq"
+    if operator == "eq":
+        pipeline[1]["$match"]["Subscription.Years"] = {
+            "$gte": years - 1/12,
+            "$lte": years + 1/12
+        }
+    
+    # Esegui l'aggregazione
+    result = db.aggregate(pipeline)
+    # Ritorna i risultati come lista
+    return list(result)
+
+    

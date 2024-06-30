@@ -14,7 +14,6 @@
             <img src="static/logo.png" alt="Logo">
         </div>
         <div class="nav-links">
-            <a href="#query">Query</a>
             <a href="#body">Home</a>
         </div>
     </div>
@@ -30,103 +29,102 @@
 
     <div class="content" id="query">
         <h2>Modulo di aggiunta utente</h2>
-            <form action="http://127.0.0.1:5000/add_user" method="post">
+        <form action="http://127.0.0.1:5000/add_user" method="post">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" class="input-field" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" class="input-field" required>
+            
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" class="input-field" required>
+            
+            <label for="date_of_birth">Data di Nascita:</label>
+            <input type="date" id="date_of_birth" name="date_of_birth" class="input-field" required>
+            
+            <label for="gender">Genere:</label>
+            <select id="gender" name="gender" class="input-field" required>
+                <option value="Male">Maschio</option>
+                <option value="Female">Femmina</option>
+                <option value="Other">Altro</option>
+            </select>
+            
+            <label for="location">Luogo:</label>
+            <input type="text" id="location" name="location" class="input-field" required>
+            
+            <fieldset>
+                <legend>Dettagli Sottoscrizione</legend>
+                <label for="subscription_start_date">Data di Inizio:</label>
+                <input type="date" id="subscription_start_date" name="subscription_start_date" class="input-field" required>
                 
-                <label for="name">Nome:</label>
-                <input type="text" id="name" name="name" class="input-field" required>
+                <label for="subscription_end_date">Data di Fine:</label>
+                <input type="date" id="subscription_end_date" name="subscription_end_date" class="input-field" required>
                 
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" class="input-field" required>
-                
-                <label for="username">Username:</label>
-                <input type="text" id="username" name="username" class="input-field" required>
-                
-                <label for="date_of_birth">Data di Nascita:</label>
-                <input type="date" id="date_of_birth" name="date_of_birth" class="input-field" required>
-                
-                <label for="gender">Genere:</label>
-                <select id="gender" name="gender" class="input-field" required>
-                    <option value="Male">Maschio</option>
-                    <option value="Female">Femmina</option>
-                    <option value="Other">Altro</option>
+                <label for="subscription_plan">Piano:</label>
+                <select id="subscription_plan" name="subscription_plan" class="input-field" required>
+                    <option value="Annual">Annuale</option>
+                    <option value="Monthly">Mensile</option>
                 </select>
                 
-                <label for="location">Luogo:</label>
-                <input type="text" id="location" name="location" class="input-field" required>
+                <label for="payment_information">Informazioni di Pagamento:</label>
+                <select id="payment_information" name="payment_information" class="input-field" required>
+                    <option value="Visa">Visa</option>
+                    <option value="Mastercard">Mastercard</option>
+                    <option value="Amex">Amex</option>
+                </select>
                 
-                <fieldset>
-                    <legend>Dettagli Sottoscrizione</legend>
-                    <label for="subscription_start_date">Data di Inizio:</label>
-                    <input type="date" id="subscription_start_date" name="subscription_start_date" class="input-field" required>
-                    
-                    <label for="subscription_end_date">Data di Fine:</label>
-                    <input type="date" id="subscription_end_date" name="subscription_end_date" class="input-field" required>
-                    
-                    <label for="subscription_plan">Piano:</label>
-                    <select id="subscription_plan" name="subscription_plan" class="input-field" required>
-                        <option value="Annual">Annuale</option>
-                        <option value="Monthly">Mensile</option>
-                    </select>
-                    
-                    <label for="payment_information">Informazioni di Pagamento:</label>
-                    <select id="payment_information" name="payment_information" class="input-field" required>
-                        <option value="Visa">Visa</option>
-                        <option value="Mastercard">Mastercard</option>
-                        <option value="Amex">Amex</option>
-                    </select>
-                    
-                    <label for="renewal_status">Stato del Rinnovo:</label>
-                    <select id="renewal_status" name="renewal_status" class="input-field" required>
-                        <option value="Manual">Manuale</option>
-                        <option value="Auto-renew">Auto-rinnovo</option>
-                    </select>
-                </fieldset>
+                <label for="renewal_status">Stato del Rinnovo:</label>
+                <select id="renewal_status" name="renewal_status" class="input-field" required>
+                    <option value="Manual">Manuale</option>
+                    <option value="Auto-renew">Auto-rinnovo</option>
+                </select>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Dettagli Utilizzo</legend>
+                <label for="usage_frequency">Frequenza:</label>
+                <input type="number" id="usage_frequency" name="usage_frequency" class="input-field" required>
                 
-                <fieldset>
-                    <legend>Dettagli Utilizzo</legend>
-                    <label for="usage_frequency">Frequenza:</label>
-                    <input type="number" id="usage_frequency" name="usage_frequency" class="input-field" required>
-                    
-                    <label for="purchase_history">Storico Acquisti:</label>
-                    <select id="purchase_history" name="purchase_history" class="input-field" required>
-                        <option value="Electronics">Elettronica</option>
-                        <option value="Books">Libri</option>
-                        <option value="Clothing">Abbigliamento</option>
-                    </select>
-                    
-                    <label for="favorite_genres">Generi Preferiti:</label>
-                    <select id="favorite_genres" name="favorite_genres" class="input-field" required>
-                        <option value="Documentary">Documentari</option>
-                        <option value="Horror">Horror</option>
-                        <option value="Comedy">Commedia</option>
-                        <option value="Drama">Dramma</option>
-                    </select>
-                    
-                    <label for="devices_used">Dispositivi Utilizzati:</label>
-                    <select id="devices_used" name="devices_used" class="input-field" required>
-                        <option value="Smart TV">Smart TV</option>
-                        <option value="Smartphone">Smartphone</option>
-                    </select>
-                    
-                    <label for="engagement_metrics">Metriche di Coinvolgimento:</label>
-                    <select id="engagement_metrics" name="engagement_metrics" class="input-field" required>
-                        <option value="Low">Bassa</option>
-                        <option value="Medium">Media</option>
-                        <option value="High">Alta</option>
-                    </select>
-                </fieldset>
+                <label for="purchase_history">Storico Acquisti:</label>
+                <select id="purchase_history" name="purchase_history" class="input-field" required>
+                    <option value="Electronics">Elettronica</option>
+                    <option value="Books">Libri</option>
+                    <option value="Clothing">Abbigliamento</option>
+                </select>
                 
-                <fieldset>
-                    <legend>Feedback</legend>
-                    <label for="ratings">Valutazioni:</label>
-                    <input type="number" id="ratings" name="ratings" class="input-field" step="0.1" required>
-                    
-                    <label for="customer_support_interactions">Interazioni con il Supporto Clienti:</label>
-                    <input type="number" id="customer_support_interactions" name="customer_support_interactions" class="input-field" required>
-                </fieldset>
+                <label for="favorite_genres">Generi Preferiti:</label>
+                <select id="favorite_genres" name="favorite_genres" class="input-field" required>
+                    <option value="Documentary">Documentari</option>
+                    <option value="Horror">Horror</option>
+                    <option value="Comedy">Commedia</option>
+                    <option value="Drama">Dramma</option>
+                </select>
                 
-                <input type="submit" class="submit-button" value="Aggiungi Utente">
-            </form>
+                <label for="devices_used">Dispositivi Utilizzati:</label>
+                <select id="devices_used" name="devices_used" class="input-field" required>
+                    <option value="Smart TV">Smart TV</option>
+                    <option value="Smartphone">Smartphone</option>
+                </select>
+                
+                <label for="engagement_metrics">Metriche di Coinvolgimento:</label>
+                <select id="engagement_metrics" name="engagement_metrics" class="input-field" required>
+                    <option value="Low">Bassa</option>
+                    <option value="Medium">Media</option>
+                    <option value="High">Alta</option>
+                </select>
+            </fieldset>
+            
+            <fieldset>
+                <legend>Feedback</legend>
+                <label for="ratings">Valutazioni:</label>
+                <input type="number" id="ratings" name="ratings" class="input-field" step="0.1" required>
+                
+                <label for="customer_support_interactions">Interazioni con il Supporto Clienti:</label>
+                <input type="number" id="customer_support_interactions" name="customer_support_interactions" class="input-field" required>
+            </fieldset>
+            
+            <input type="submit" class="submit-button" value="Aggiungi Utente">
+        </form>
 
 
         <h2>Cerca Utente</h2>
@@ -162,7 +160,11 @@
         <h2>Gender user</h2>
         <form action="/show_gender" method="post">
             <label for="Gender">Genere:</label>
-            <input type="Gender" id="Gender" name="Gender" class="input-field" required>
+            <select id="Gender" name="Gender" class="input-field" required>
+                <option value="Male">Maschio</option>
+                <option value="Female">Femmina</option>
+                <option value="Other">Altro</option>
+            </select>
             <input type="submit" class="submit-button" value="Cerca">
         </form>
     
@@ -188,7 +190,7 @@
         <form action="http://127.0.0.1:5000/count_plans" method="post">
             <input type="submit" class="submit-button" value="Mostra Conteggio dei Piani">
         </form>
-    
+        {% if plans%}
         <h3>Risultati:</h3>
         <table>
             <tr>
@@ -204,12 +206,13 @@
                 {% endfor %}
         
         </table>
+        {% endif %}
         
         <h2>Valutazione Media per Location</h2>
         <form action="http://127.0.0.1:5000/rating_by_location" method="post">
             <input type="submit" class="submit-button" value="Mostra Valutazione Media per Location">
         </form>
-    
+        {% if avg_ratings %}
         <h3>Risultati:</h3>
         <table>
             <tr>
@@ -225,6 +228,7 @@
                 {% endfor %}
             {% endif %}
         </table>
+        {% endif %}
         
         
         <h2>Mostra gli utenti con un solo dispositivo </h2>
@@ -244,7 +248,7 @@
         <form action="http://127.0.0.1:5000/renewal_status_counts" method="post">
             <input type="submit" class="submit-button" value="Mostra Conteggio degli Stati di Rinnovo">
         </form>
-
+        {% if counts %}
         <h3>Risultati:</h3>
         <table>
             <tr>
@@ -258,13 +262,13 @@
             </tr>
             {% endfor %}
         </table>
-        
+        {% endif %}
 
-        <h2>Conteggio degli Utenti per Numero di Dispositivi Usati</h2>
+        <h2>Conteggio degli Utenti per Numero di Dispositivi Usati (Valore calcolato con query)</h2>
         <form action="http://127.0.0.1:5000/count_devices_used" method="post">
             <input type="submit" class="submit-button" value="Mostra Conteggio degli Utenti per Numero di Dispositivi Usati">
         </form>
-    
+        {% if device_counts %}
         <table>
             <thead>
                 <tr>
@@ -281,8 +285,63 @@
                 {% endfor %}
             </tbody>
         </table>
+        {% endif %}
+        <h2>Mesi di abbonamento per ogni utente (valore calcolato)</h2>
+        <form action="http://127.0.0.1:5000/get_all_subscriptions_years#subscription-form" method="get">
+            <input type="submit" class="submit-button" value="Mostra Mesi Di Abbonamento">
+        </form>
+        {% if subscription_years %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Object ID</th>
+                    <th>Nome</th>
+                    <th>Mesi di abbonamento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_sub in subscription_years %}
+                <tr>
+                    
+                    <td>{{ user_sub._id}}</td>
+                    <td>{{ user_sub.Name}}</td>
+                    <td>{{ user_sub.Subscription.Years }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
 
+        <h2>Mesi di abbonamento per ogni utente (valore calcolato)</h2>
+        <form action="http://127.0.0.1:5000/search_user_by_subscription_months" method="post">
+            <input type="number"id = "months" name="months" class="input-field" required>
+            <select id="operator" name="operator" class="input-field" required>
+                <option value="gte">Maggiore</option>
+                <option value="lte">Minore</option>
+                <option value="eq">Uguale</option>
+            </select>
+
+            <input type="submit" class="submit-button" value="Mostra Mesi Di Abbonamento">
+        </form>
     </div>
+    <script>
+        // Aggiungi l'evento di submit a tutti i form
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function() {
+                // Salva la posizione corrente dello scroll
+                localStorage.setItem('scrollPosition', window.scrollY);
+            });
+        });
+
+        window.addEventListener('load', function() {
+            // Ripristina la posizione dello scroll
+            var scrollPosition = localStorage.getItem('scrollPosition');
+            if (scrollPosition !== null) {
+                window.scrollTo(0, parseInt(scrollPosition, 10));
+                localStorage.removeItem('scrollPosition'); // Rimuove la posizione salvata
+            }
+        });
+    </script>
     <script src="static/script.js"></script>
 </body>
 </html>

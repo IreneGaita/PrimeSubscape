@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 from flask import jsonify, render_template, request, redirect, url_for
 from flask import current_app as app
-from app.models import add_user, count_devices_used, count_plans, count_renewal_status, find_users_with_favorite_genres, find_users_with_one_device, get_unique_genres, intervall_date, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower, user_monthly_plan_frequency
+from app.models import add_user, aggregate_subscription_years, count_devices_used, count_plans, count_renewal_status, find_every_user_less_greater_equal_subscription_years, find_users_with_favorite_genres, find_users_with_one_device, get_unique_genres, intervall_date, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower, user_monthly_plan_frequency
 from app.database_init import load_csv_to_mongo
 
 
@@ -16,43 +16,43 @@ def edit_user_route(user_id):
     if request.method == 'POST':
         # Aggiorna i dettagli dell'utente nel database
         user_data = {
-        "Name": request.form['name'],
-        "Email Address": request.form['email'],
-        "Username": request.form['username'],
-        "Date of Birth": datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d').date().strftime('%Y-%m-%d'),
-        "Gender": request.form['gender'],
-        "Location": request.form['location'],
-        "Subscription": {
-            "Start Date": datetime.strptime(request.form['subscription_start_date'], '%Y-%m-%d').date().strftime('%Y-%m-%d'),
-            "End Date": datetime.strptime(request.form['subscription_end_date'], '%Y-%m-%d').date().strftime('%Y-%m-%d'),
-            "Plan": request.form['subscription_plan'],
-            "Payment Information": request.form['payment_information'],
-            "Renewal Status": request.form['renewal_status']
-        },
-        "Usage": {
-            "Frequency": int(request.form['usage_frequency']),
-            "Purchase History": request.form.getlist('purchase_history'),
-            "Favorite Genres": request.form.getlist('favorite_genres'),
-            "Devices Used": request.form.getlist('devices_used'),
-            "Engagement Metrics": request.form['engagement_metrics']
-        },
-        "Feedback": {
-            "Ratings": float(request.form['ratings']),
-            "Customer Support Interactions": int(request.form['customer_support_interactions'])
+            "Name": request.form['name'],
+            "Email Address": request.form['email'],
+            "Username": request.form['username'],
+            "Date of Birth": datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d'),
+            "Gender": request.form['gender'],
+            "Location": request.form['location'],
+            "Subscription": {
+                "Start Date": datetime.strptime(request.form['subscription_start_date'], '%Y-%m-%d'),
+                "End Date": datetime.strptime(request.form['subscription_end_date'], '%Y-%m-%d'),
+                "Plan": request.form['subscription_plan'],
+                "Payment Information": request.form['payment_information'],
+                "Renewal Status": request.form['renewal_status']
+            },
+            "Usage": {
+                "Frequency": int(request.form['usage_frequency']),
+                "Purchase History": request.form.getlist('purchase_history'),
+                "Favorite Genres": request.form.getlist('favorite_genres'),
+                "Devices Used": request.form.getlist('devices_used'),
+                "Engagement Metrics": request.form['engagement_metrics']
+            },
+            "Feedback": {
+                "Ratings": float(request.form['ratings']),
+                "Customer Support Interactions": int(request.form['customer_support_interactions'])
+            }
         }
-        }
-        
+
         edit_user(user_data, user_id)
         return redirect(url_for('edit_user_route', user_id=user_id))
-    
+
     # Recupera i dettagli dell'utente dal database
     user = find_user_by_id(user_id)
 
-    #adapt date format
-    if user['Date of Birth'] is type(str):
-        user['Date of Birth'] = datetime.strptime(user['Date of Birth'], '%Y-%m-%d').date().strftime('%Y-%m-%d')
-        user['Subscription']['Start Date'] = datetime.strptime(user['Subscription']['Start Date'], '%Y-%m-%d').date().strftime('%Y-%m-%d')
-        user['Subscription']['End Date'] = datetime.strptime(user['Subscription']['End Date'], '%Y-%m-%d').date().strftime('%Y-%m-%d')
+    # Adatta il formato delle date
+    if isinstance(user['Date of Birth'], str):
+        user['Date of Birth'] = datetime.strptime(user['Date of Birth'], '%Y-%m-%d').strftime('%Y-%m-%d')
+        user['Subscription']['Start Date'] = datetime.strptime(user['Subscription']['Start Date'], '%Y-%m-%d').strftime('%Y-%m-%d')
+        user['Subscription']['End Date'] = datetime.strptime(user['Subscription']['End Date'], '%Y-%m-%d').strftime('%Y-%m-%d')
     else:
         user["Date of Birth"] = user["Date of Birth"].strftime('%Y-%m-%d')
         user["Subscription"]["Start Date"] = user["Subscription"]["Start Date"].strftime('%Y-%m-%d')
@@ -67,12 +67,12 @@ def add_user_route():
         "Name": request.form['name'],
         "Email Address": request.form['email'],
         "Username": request.form['username'],
-        "Date of Birth": datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d').date().strftime('%Y-%m-%d'),
+        "Date of Birth": datetime.strptime(request.form['date_of_birth'], '%Y-%m-%d'),
         "Gender": request.form['gender'],
         "Location": request.form['location'],
         "Subscription": {
-            "Start Date": datetime.strptime(request.form['subscription_start_date'], '%Y-%m-%d').date().strftime('%Y-%m-%d'),
-            "End Date": datetime.strptime(request.form['subscription_end_date'], '%Y-%m-%d').date().strftime('%Y-%m-%d'),
+            "Start Date": datetime.strptime(request.form['subscription_start_date'], '%Y-%m-%d'),
+            "End Date": datetime.strptime(request.form['subscription_end_date'], '%Y-%m-%d'),
             "Plan": request.form['subscription_plan'],
             "Payment Information": request.form['payment_information'],
             "Renewal Status": request.form['renewal_status']
@@ -205,3 +205,21 @@ def count_devices_used_route():
     device_counts = count_devices_used()
     return render_template('index.html', device_counts=device_counts)
 
+@app.route("/get_all_subscriptions_years", methods=["GET"])
+def get_subscription_years():
+    # Recupera i dati aggregati per gli anni di sottoscrizione
+    users= aggregate_subscription_years()
+    #gli anni sono espressi da 0 a 1, convertili in mesi
+    for user in users:
+        
+        user["Subscription"]["Years"] = (user["Subscription"]["Years"] * 12).__round__()
+        
+    return render_template("index.html", subscription_years=users)
+
+
+@app.route('/search_user_by_subscription_months', methods=['POST'])
+def search_user_by_subscription_months():
+    months = int(request.form.get('months')) / 12
+    operator = request.form.get('operator')
+    users = find_every_user_less_greater_equal_subscription_years(operator, months)
+    return render_template('querytemplate.html', find_user=users)
