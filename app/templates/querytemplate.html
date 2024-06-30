@@ -31,12 +31,37 @@
     <div class="search-results">
         <h2>Risultati della Ricerca</h2>
         
-        <form action="/select_genres" method="post">
-            <h2>Filtra per Generi Preferiti</h2>
-            {% for genre in genres %}
-                <input type="checkbox" id="genre_{{ genre }}" name="genres" value="{{ genre }}" {% if genre in selected_genres %}checked{% endif %}>
-                <label for="genre_{{ genre }}">{{ genre }}</label><br>
-            {% endfor %}
+        <form action="/filter_users" method="post">
+            <div class="filter-section">
+                <h2>Filtra per Generi Preferiti</h2>
+                {% for genre in ['Drama', 'Sci-Fi', 'Romance', 'Horror', 'Documentary', 'Action', 'Comedy'] %}
+                    <input type="checkbox" id="genre_{{ genre }}" name="genres" value="{{ genre }}" {% if genre in request.form.getlist('genres') %}checked{% endif %}>
+                    <label for="genre_{{ genre }}">{{ genre }}</label>
+                {% endfor %}
+            </div>
+            
+            <div class="filter-section">
+                <h2>Filtra per Dispositivi Utilizzati</h2>
+                {% for device in ['Tablet', 'Smartphone', 'Smart TV', 'Laptop'] %}
+                    <input type="checkbox" id="device_{{ device }}" name="devices" value="{{ device }}" {% if device in request.form.getlist('devices') %}checked{% endif %}>
+                    <label for="device_{{ device }}">{{ device }}</label>
+                {% endfor %}
+            </div>
+
+            <div class="filter-section">
+                <h2>Filtra per Storico Acquisti</h2>
+                {% for purchase in ['Electronics', 'Clothing', 'Books'] %}
+                    <input type="checkbox" id="purchase_{{ purchase }}" name="purchase_history" value="{{ purchase }}" {% if purchase in request.form.getlist('purchase_history') %}checked{% endif %}>
+                    <label for="purchase_{{ purchase }}">{{ purchase }}</label>
+                {% endfor %}
+            </div>
+
+            <div class="filter-section">
+                <h2>Esclusività dei Criteri</h2>
+                <input type="checkbox" id="exclusive" name="exclusive" value="true" {% if 'exclusive' in request.form %}checked{% endif %}>
+                <label for="exclusive">Mostra solo utenti con tutti i criteri selezionati</label>
+            </div>
+
             <input type="submit" class="submit-button" value="Filtra Utenti">
         </form>
 

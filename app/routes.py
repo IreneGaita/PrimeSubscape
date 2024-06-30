@@ -2,7 +2,7 @@ from datetime import datetime
 from bson import ObjectId
 from flask import jsonify, render_template, request, redirect, url_for
 from flask import current_app as app
-from app.models import add_user, aggregate_subscription_years, count_devices_used, count_plans, count_renewal_status, find_every_user_less_greater_equal_subscription_years, find_users_with_favorite_genres, find_users_with_one_device, get_unique_genres, intervall_date, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, show_end_date, show_gender, show_location, show_ratings_lower, user_monthly_plan_frequency
+from app.models import add_user, aggregate_subscription_years, count_devices_used, count_plans, count_renewal_status, find_every_user_less_greater_equal_subscription_years, find_users_with_favorite_genres, find_users_with_one_device, get_unique_genres, intervall_date, rating_by_location,search_user, delete_user, search_all_user, edit_user, find_user_by_id, search_users_by_criteria, show_end_date, show_gender, show_location, show_ratings_lower, user_monthly_plan_frequency
 from app.database_init import load_csv_to_mongo
 
 
@@ -223,3 +223,14 @@ def search_user_by_subscription_months():
     operator = request.form.get('operator')
     users = find_every_user_less_greater_equal_subscription_years(operator, months)
     return render_template('querytemplate.html', find_user=users)
+
+
+@app.route('/filter_users', methods=['POST'])
+def filter_users_route():
+    genres = request.form.getlist('genres')
+    devices = request.form.getlist('devices')
+    purchase_history = request.form.getlist('purchase_history')
+    exclusive = 'exclusive' in request.form
+
+    users = search_users_by_criteria(genres, devices, purchase_history, exclusive)
+    return render_template('querytemplate.html', find_user=users, genres=genres, devices=devices, purchase_history=purchase_history)

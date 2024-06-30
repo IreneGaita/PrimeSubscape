@@ -255,4 +255,41 @@ def find_every_user_less_greater_equal_subscription_years(operator, years):
     # Ritorna i risultati come lista
     return list(result)
 
+
+def search_users_by_criteria(genres=None, devices=None, purchase_history=None, exclusive=False):
+
+    # Crea la query basata sui criteri forniti
+    query = {}
+    
+    if genres:
+        if exclusive:
+            query["$and"] = [
+                {"Usage.Favorite Genres": {'$all': genres}},
+                {"$expr": {"$eq": [{"$size": "$Usage.Favorite Genres"}, len(genres)]}}
+            ]
+        else:
+            query["Usage.Favorite Genres"] = {'$in': genres}
+    
+    if devices:
+        if exclusive:
+            query["$and"] = query.get("$and", []) + [
+                {"Usage.Devices Used": {'$all': devices}},
+                {"$expr": {"$eq": [{"$size": "$Usage.Devices Used"}, len(devices)]}}
+            ]
+        else:
+            query["Usage.Devices Used"] = {'$in': devices}
+
+    if purchase_history:
+        if exclusive:
+            query["$and"] = query.get("$and", []) + [
+                {"Usage.Purchase History": {'$all': purchase_history}},
+                {"$expr": {"$eq": [{"$size": "$Usage.Purchase History"}, len(purchase_history)]}}
+            ]
+        else:
+            query["Usage.Purchase History"] = {'$in': purchase_history}
+    
+    # Esegui la ricerca
+    result = list(db.find(query))
+
+    return result
     
