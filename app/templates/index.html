@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modulo di Registrazione</title>
     <link rel="stylesheet" href="static/style.css">
+    <script>
+        function redirectToHome() {
+            window.location.href = "http://127.0.0.1:5000/";
+        }
+    </script>
 </head>
 <body id="body">
     <div id="background-blur" class="background-blur"></div>
@@ -14,7 +19,7 @@
             <img src="static/logo.png" alt="Logo">
         </div>
         <div class="nav-links">
-            <a href="#body">Home</a>
+            <a href="#body" onclick="redirectToHome()">Home</a>
         </div>
     </div>
 

@@ -5,6 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Risultati della Ricerca</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function redirectToHome() {
+            window.location.href = "http://127.0.0.1:5000/";
+        }
+    </script>
 </head>
 <body id="body">
     
@@ -15,7 +20,7 @@
             <img src="{{ url_for('static', filename='logo.png') }}" alt="Logo">
         </div>
         <div class="nav-links">
-            <a href="http://127.0.0.1:5000">Home</a>
+            <a href="#body" onclick="redirectToHome()">Home</a>
         </div>
     </div>
 

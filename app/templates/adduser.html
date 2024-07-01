@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modulo di Registrazione</title>
+    <link rel="stylesheet" href="static/style.css">
+    <script>
+        function redirectToHome() {
+            window.location.href = "http://127.0.0.1:5000/";
+        }
+    </script>
+</head>
+<body id="body">
+    <div id="background-blur" class="background-blur"></div>
+
+    <div class="navbar">
+        <div class="logo-container">
+            <img src="static/logo.png" alt="Logo">
+        </div>
+        <div class="nav-links">
+            <a href="#body" onclick="redirectToHome()">Home</a>
+        </div>
+    </div>
+
+    <div class="header" id="home">
+        <div class="logo-container">
+            <img src="static/logo.png" alt="Logo">
+            <div class="title">
+                <h1>Prime Subscape</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="content" id="query">
+        <h2>Utente aggiunto con successo</h2>
+    <script>
+        // Aggiungi l'evento di submit a tutti i form
+        document.querySelectorAll('form').forEach(form => {
+            form.addEventListener('submit', function() {
+                // Salva la posizione corrente dello scroll
+                localStorage.setItem('scrollPosition', window.scrollY);
+            });
+        });
+
+        window.addEventListener('load', function() {
+            // Ripristina la posizione dello scroll
+            var scrollPosition = localStorage.getItem('scrollPosition');
+            if (scrollPosition !== null) {
+                window.scrollTo(0, parseInt(scrollPosition, 10));
+                localStorage.removeItem('scrollPosition'); // Rimuove la posizione salvata
+            }
+        });
+    </script>
+    <script src="static/script.js"></script>
+</body>
+</html>

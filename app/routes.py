@@ -93,7 +93,8 @@ def add_user_route():
     # Inserisci il nuovo documento nel database
     result = add_user(user_data)
     
-    return jsonify({"message": "User added successfully", "id": str(result.inserted_id)}), 201
+    return render_template('adduser.html')
+
 
 @app.route('/create_database')
 def create_database():
