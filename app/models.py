@@ -55,7 +55,9 @@ def add_user(user_data):
         user_data['User ID'] = random.randint(1000, 9999)
 
     result = db.insert_one(user_data)
-    return result
+
+    #find the inserted user and return it
+    return db.find_one({'_id': result.inserted_id})
 
 
 def show_end_date():

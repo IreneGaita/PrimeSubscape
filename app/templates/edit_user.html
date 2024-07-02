@@ -92,14 +92,14 @@
                 <input type="number" id="usage_frequency" name="usage_frequency" class="input-field" value="{{ user['Usage']['Frequency'] }}" required>
                 
                 <label for="purchase_history">Storico Acquisti:</label>
-                <select id="purchase_history" name="purchase_history" class="input-field" required>
+                <select id="purchase_history" name="purchase_history" class="input-field" multiple required>
                     <option value="Electronics" {% if 'Electronics' in user['Usage']['Purchase History'] %}selected{% endif %}>Elettronica</option>
                     <option value="Books" {% if 'Books' in user['Usage']['Purchase History'] %}selected{% endif %}>Libri</option>
                     <option value="Clothing" {% if 'Clothing' in user['Usage']['Purchase History'] %}selected{% endif %}>Abbigliamento</option>
                 </select>
                 
                 <label for="favorite_genres">Generi Preferiti:</label>
-                <select id="favorite_genres" name="favorite_genres" class="input-field" required>
+                <select id="favorite_genres" name="favorite_genres" class="input-field" multiple required>
                     <option value="Documentary" {% if 'Documentary' in user['Usage']['Favorite Genres'] %}selected{% endif %}>Documentari</option>
                     <option value="Horror" {% if 'Horror' in user['Usage']['Favorite Genres'] %}selected{% endif %}>Horror</option>
                     <option value="Comedy" {% if 'Comedy' in user['Usage']['Favorite Genres'] %}selected{% endif %}>Commedia</option>
@@ -107,7 +107,7 @@
                 </select>
                 
                 <label for="devices_used">Dispositivi Utilizzati:</label>
-                <select id="devices_used" name="devices_used" class="input-field" required>
+                <select id="devices_used" name="devices_used" class="input-field" multiple required>
                     <option value="Smart TV" {% if 'Smart TV' in user['Usage']['Devices Used'] %}selected{% endif %}>Smart TV</option>
                     <option value="Smartphone" {% if 'Smartphone' in user['Usage']['Devices Used'] %}selected{% endif %}>Smartphone</option>
                 </select>
@@ -123,7 +123,7 @@
             <fieldset>
                 <legend>Feedback</legend>
                 <label for="ratings">Valutazioni:</label>
-                <input type="number" id="ratings" name="ratings" class="input-field" step="0.1" value="{{ user['Feedback']['Ratings'] }}" required>
+                <input type="number" id="ratings" name="ratings" class="input-field" step="0.1" value="{{ user['Feedback']['Ratings'] }}" min="0" max="5" required>
                 
                 <label for="customer_support_interactions">Interazioni con il Supporto Clienti:</label>
                 <input type="number" id="customer_support_interactions" name="customer_support_interactions" class="input-field" value="{{ user['Feedback']['Customer Support Interactions'] }}" required>

@@ -61,8 +61,11 @@ def edit_user_route(user_id):
     return render_template('edit_user.html', user=user)
         
 
-@app.route('/add_user', methods=['POST'])
+@app.route('/add_user', methods=['POST', "GET"])
 def add_user_route():
+    if request.method == 'GET':
+        return render_template('add_user_page.html')
+    
     user_data = {
         "Name": request.form['name'],
         "Email Address": request.form['email'],
@@ -93,7 +96,7 @@ def add_user_route():
     # Inserisci il nuovo documento nel database
     result = add_user(user_data)
     
-    return render_template('adduser.html')
+    return render_template('adduser.html', user = result)
 
 
 @app.route('/create_database')

@@ -374,3 +374,50 @@ body {
 #exclusive {
     margin-top: 10px;
 }
+
+/* Styling per select multiple */
+.input-field[multiple] {
+    height: auto; /* Adjust height for multiple select */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    background-color: #fff;
+    color: #333;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.input-field[multiple] option {
+    padding: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.input-field[multiple] option:hover {
+    background-color: #5271FF;
+    color: white;
+}
+
+.input-field[multiple] option:checked {
+    background-color: #5271FF;
+    color: white;
+}
+
+.input-field[multiple]::-webkit-scrollbar {
+    width: 8px;
+}
+
+.input-field[multiple]::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+}
+
+.input-field[multiple]::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+}
+
+.input-field[multiple]::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
